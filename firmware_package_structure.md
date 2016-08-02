@@ -54,8 +54,8 @@ The offset value has to be calculated as 52 * 'row number'.
 					00 - 00	 1 byte firmware module type 
 					01 - 01	 1 byte special coding - either '10' = DJI or '00' = none
 					02 - 03	 2 byte <?> mostly 01 00
-					04 - 07	 4 byte firmware module version (byte wise from right to left)
-					08 - 0B	 4 byte absolut position of firmware module within firmware package file
+					04 - 07	 4 byte firmware module version (from MSB: 8 bit major, 8 bit minor, 16 bit build number)
+					08 - 0B	 4 byte absolute position of firmware module within firmware package file
 					0C - 0F	 4 byte length of firmware module
 					10 - 13	 4 byte length of firmware module (repeated <?>)
 					14 - 23	16 byte MD5 hash of firmware module
@@ -64,13 +64,36 @@ The offset value has to be calculated as 52 * 'row number'.
 
 The different firmware module types are described in this document (http://www.github.com/)
 
+## Firmware module types
+
+The following types are known:
+
+```
+    01 Remote Controller OS image, for FC300x, where x is a version - a, b or c; largest module
+    04 <?>
+    08 <?>
+    09 <?>
+    0B <?>
+    0F <?>
+    0C <?>
+    11 <?>
+    13 <?>
+    21 Firmware for Cortex-A9 made with ThreadX RTOS
+    2B <?>
+    2C <?>
+    4C <?>
+    6C <?>
+    A3 <?>
+    C3 <?>
+```
+
 ### Open qustions
 
 - [ ] For what reason is the file length information repeated within the seek table?
 - [ ] What is the function of the second "hash" type field within the seek table?
 - [ ] How is the 2 byte checksum composed?
 - [ ] How is the firmware package file version composed?
-- [ ] Why are firmware mosule subversion somtimes slightly different from what is shown at upgrade logs?
+- [ ] Why are firmware module subversion somtimes slightly different from what is shown at upgrade logs?
 
 ### Tools
 
